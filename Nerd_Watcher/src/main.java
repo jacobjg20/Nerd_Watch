@@ -1,38 +1,66 @@
+import org.osbot.rs07.api.filter.Filter;
+import org.osbot.rs07.api.model.Player;
+
 import org.osbot.rs07.script.Script;
 
 import org.osbot.rs07.script.ScriptManifest;
 
 import java.awt.*;
+import java.util.Random;
 
-@ScriptManifest(name = "Nerd_Watcher", author = "Jacob", version = 1.0, info = "", logo = "") 
+@ScriptManifest(name = "Nerd_Watcher", author = "Jacob", version = 1.0, info = "", logo = "")
 
 public class main extends Script {
 
-    @Override
+	Player nerd;
+	Random rand = new Random();
 
-    public void onStart() {
+	@Override
 
-        //Code here will execute before the loop is started
+	public void onStart() {
 
-    }
+		// Code here will execute before the loop is started
 
-    
+	}
 
-    @Override
+	@Override
 
-    public void onExit() {
+	public void onExit() {
 
-        //Code here will execute after the script ends
+		// Code here will execute after the script ends
 
-    }
+	}
 
-    @Override
+	@Override
 
-    public int onLoop() {
+	public int onLoop() {
 
-        return 100; //The amount of time in milliseconds before the loop starts over
+		if (nerd == null) {
+			nerd = getClosestPlayer();
+		}
 
-    }
+		log(nerd.getName() + "Following");
+		int randomNumber = (rand.nextInt(10000 - 600 + 1) + 600);
+		
+		return randomNumber; // The amount of time in milliseconds before the loop starts over
+		
+	}
 
+	public Player getClosestPlayer() {
+
+		Player closest = getPlayers().closest(new Filter<Player>() {
+
+			@Override
+
+			public boolean match(Player p) {
+
+				return p != null && !p.equals(myPlayer());
+
+			}
+
+		});
+
+		return closest;
+	}
 
 }
