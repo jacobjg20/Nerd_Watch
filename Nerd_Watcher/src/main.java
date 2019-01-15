@@ -9,14 +9,12 @@ import java.awt.*;
 import java.util.Random;
 
 @ScriptManifest(name = "Nerd_Watcher", author = "Jacob", version = 1.0, info = "", logo = "")
-
 public class main extends Script {
 
-	Player nerd;
+	Player player;
 	Random rand = new Random();
 
 	@Override
-
 	public void onStart() {
 
 		// Code here will execute before the loop is started
@@ -24,7 +22,6 @@ public class main extends Script {
 	}
 
 	@Override
-
 	public void onExit() {
 
 		// Code here will execute after the script ends
@@ -32,18 +29,27 @@ public class main extends Script {
 	}
 
 	@Override
-
 	public int onLoop() {
-
-		if (nerd == null) {
-			nerd = getClosestPlayer();
+		//if player is null, getClosestPlayer
+		if(player == null){
+			player = getClosestPlayer();
+			player.interact("Follow");
+		}
+		
+		// If player cannot be found getClosestPlayer
+		if (!player.isVisible()) {
+			log("Lost Target");
+			player = getClosestPlayer();
+			player.interact("Follow");
 		}
 
-		log(nerd.getName() + "Following");
+		log("Following" + player.getName());
+
 		int randomNumber = (rand.nextInt(10000 - 600 + 1) + 600);
-		
-		return randomNumber; // The amount of time in milliseconds before the loop starts over
-		
+
+		return randomNumber; // The amount of time in milliseconds before the
+								// loop starts over
+
 	}
 
 	public Player getClosestPlayer() {
@@ -57,7 +63,7 @@ public class main extends Script {
 			}
 
 		});
-		
+
 		return closest;
 	}
 
