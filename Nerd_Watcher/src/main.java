@@ -50,8 +50,6 @@ public class main extends Script {
 
 		Player closest = getPlayers().closest(new Filter<Player>() {
 
-			@Override
-
 			public boolean match(Player p) {
 
 				return p != null && !p.equals(myPlayer());
@@ -59,7 +57,7 @@ public class main extends Script {
 			}
 
 		});
-
+		//commit
 		return closest;
 	}
 
